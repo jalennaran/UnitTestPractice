@@ -26,7 +26,7 @@ TEST(PasswordTest, empty_string)
 {
 	Password my_password;
 	int actual = my_password.count_leading_characters("");
-	ASSERT_EQ(1, actual);
+	ASSERT_EQ(0, actual);
 }
 
 TEST(PasswordTest, multiple_same_characters)
