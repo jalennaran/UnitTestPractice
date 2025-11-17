@@ -43,3 +43,19 @@ bool Password::has_mixed_case(string pass){
   
   return has_upper && has_lower;
 }
+
+/* Receives a string and returns a count of how many case-sensitive unique characters there are. If there are duplicate instances of the same character it should only count as a single character. Even if characters look similar, as long as they have distinct ASCII values, they should qualify as unique characters. */
+unsigned int Password::unique_characters(string phrase){
+  bool ascii_chars[128] = {false}; // Array to track seen ASCII characters
+  unsigned int unique_count = 0;
+
+  for(char c : phrase){
+    unsigned char_index = static_cast<unsigned char>(c);
+    if(!ascii_chars[char_index]){
+      ascii_chars[char_index] = true;
+      unique_count++;
+    }
+  }
+
+  return unique_count;
+}

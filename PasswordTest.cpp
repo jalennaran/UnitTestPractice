@@ -190,3 +190,144 @@ TEST(PasswordTest, mixed_case_spaces_between)
 	bool actual = my_password.has_mixed_case("Pass Word");
 	ASSERT_TRUE(actual);
 }
+
+// Tests for unique_characters function
+TEST(PasswordTest, unique_empty_string)
+{
+	Password my_password;
+	unsigned int actual = my_password.unique_characters("");
+	ASSERT_EQ(0, actual);
+}
+
+TEST(PasswordTest, unique_single_character)
+{
+	Password my_password;
+	unsigned int actual = my_password.unique_characters("a");
+	ASSERT_EQ(1, actual);
+}
+
+TEST(PasswordTest, unique_all_same_character)
+{
+	Password my_password;
+	unsigned int actual = my_password.unique_characters("aaaa");
+	ASSERT_EQ(1, actual);
+}
+
+TEST(PasswordTest, unique_all_different_characters)
+{
+	Password my_password;
+	unsigned int actual = my_password.unique_characters("abcd");
+	ASSERT_EQ(4, actual);
+}
+
+TEST(PasswordTest, unique_with_duplicates)
+{
+	Password my_password;
+	unsigned int actual = my_password.unique_characters("aabbcc");
+	ASSERT_EQ(3, actual);
+}
+
+TEST(PasswordTest, unique_case_sensitive)
+{
+	Password my_password;
+	unsigned int actual = my_password.unique_characters("AaBbCc");
+	ASSERT_EQ(6, actual);
+}
+
+TEST(PasswordTest, unique_uppercase_only)
+{
+	Password my_password;
+	unsigned int actual = my_password.unique_characters("AAA");
+	ASSERT_EQ(1, actual);
+}
+
+TEST(PasswordTest, unique_with_spaces)
+{
+	Password my_password;
+	unsigned int actual = my_password.unique_characters("a b c");
+	ASSERT_EQ(4, actual);
+}
+
+TEST(PasswordTest, unique_with_numbers)
+{
+	Password my_password;
+	unsigned int actual = my_password.unique_characters("abc123");
+	ASSERT_EQ(6, actual);
+}
+
+TEST(PasswordTest, unique_with_special_characters)
+{
+	Password my_password;
+	unsigned int actual = my_password.unique_characters("a!b@c#");
+	ASSERT_EQ(6, actual);
+}
+
+TEST(PasswordTest, unique_repeated_numbers)
+{
+	Password my_password;
+	unsigned int actual = my_password.unique_characters("111222333");
+	ASSERT_EQ(3, actual);
+}
+
+TEST(PasswordTest, unique_mixed_with_duplicates)
+{
+	Password my_password;
+	unsigned int actual = my_password.unique_characters("Password123!");
+	ASSERT_EQ(11, actual);
+}
+
+TEST(PasswordTest, unique_only_spaces)
+{
+	Password my_password;
+	unsigned int actual = my_password.unique_characters("   ");
+	ASSERT_EQ(1, actual);
+}
+
+TEST(PasswordTest, unique_special_chars_repeated)
+{
+	Password my_password;
+	unsigned int actual = my_password.unique_characters("!!!@@@###");
+	ASSERT_EQ(3, actual);
+}
+
+TEST(PasswordTest, unique_long_string_few_unique)
+{
+	Password my_password;
+	unsigned int actual = my_password.unique_characters("aaabbbcccdddeee");
+	ASSERT_EQ(5, actual);
+}
+
+TEST(PasswordTest, unique_alphabet_lowercase)
+{
+	Password my_password;
+	unsigned int actual = my_password.unique_characters("abcdefghijklmnopqrstuvwxyz");
+	ASSERT_EQ(26, actual);
+}
+
+TEST(PasswordTest, unique_alphabet_both_cases)
+{
+	Password my_password;
+	unsigned int actual = my_password.unique_characters("aAbBcCdDeEfF");
+	ASSERT_EQ(12, actual);
+}
+
+TEST(PasswordTest, unique_digits_all)
+{
+	Password my_password;
+	unsigned int actual = my_password.unique_characters("0123456789");
+	ASSERT_EQ(10, actual);
+}
+
+TEST(PasswordTest, unique_complex_password)
+{
+	Password my_password;
+	unsigned int actual = my_password.unique_characters("P@ssw0rd!123");
+	ASSERT_EQ(11, actual);
+}
+
+TEST(PasswordTest, unique_newline_and_tab)
+{
+	Password my_password;
+	unsigned int actual = my_password.unique_characters("a\nb\tc");
+	ASSERT_EQ(5, actual);
+}
